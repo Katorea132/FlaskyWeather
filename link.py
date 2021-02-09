@@ -1,6 +1,6 @@
 """
 Module with the unique and special purpose of avoiding
-circular imports
+circular imports through a common link
 """
 from flask import Flask
 from flask_restful import Api
