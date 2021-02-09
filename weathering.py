@@ -4,6 +4,7 @@ return the weather information
 """
 from flask_restful import Resource, reqparse, inputs
 from api_bridge import bridge
+from link import cache, app
 
 
 location_args = reqparse.RequestParser()
@@ -18,6 +19,12 @@ class Weathering(Resource):
     """
     Resource to be routed for the weather api
     """
+    @cache.cached(timeout=120,
+                  unless=lambda: app.config['ENV'] == 'development')
     def get(self):
+        """
+        In charge of returning the necessary information
+        either for successfull or unsuccessfull requests
+        """
         answer = bridge(location_args.parse_args())
         return answer[0], answer[1]

@@ -1,5 +1,5 @@
-from flask import Flask
-from flask_restful import Api
+from link import app, api
+from weathering import Weathering
 from welcome import Welcome
 from weathering import Weathering
 """
@@ -9,8 +9,6 @@ And production mode - Defaults to production
 Ex: export FLASK_ENV=development
 """
 
-app = Flask(__name__)
-api = Api(app)
 
 api.add_resource(Welcome, "/")
 api.add_resource(Weathering, "/weather")
