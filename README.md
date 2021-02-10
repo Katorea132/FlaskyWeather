@@ -20,3 +20,8 @@ With that you'll have the required elements to run the API, but there are 2 envi
 The city parameter must be a string and the country one a 2 letter string, consisting only of lower cap letters
 
 example = '/weather?country=co&city=medellin'
+
+This API will cache the answers for 2 minutes, so different requests from the same source will be met with the first response in a time lapse of the first 2 minutes.
+This behaviour is not present on the debug mode for easier testing.
+
+* The sunset and sunrise time are given in server time, which is, most likely, -5 gtm

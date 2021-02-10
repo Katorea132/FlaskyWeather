@@ -25,22 +25,17 @@ class TestWeathering(unittest.TestCase):
                          response.headers["Content-Type"],
                          "Incorrect content-type set")
 
-    # def test_server_answer(self):
-    #     """
-    #     Tests for the correct welcome message
-    #     """
-    #     expected_answer = {
-    #         "How to use": {
-    #             "Required parameters": {
-    #                 "City": "A string containing the name of the city",
-    #                 "Country": "2 letter country code in lowercase"
-    #             },
-    #             "Type of Request": "GET",
-    #             "Example": "GET /weather?city=$valledupar&country=co&"
-    #         }
-    #     }
-    #     self.assertEqual(expected_answer, response.json(),
-    #                      "The server's answer is not what was expected.")
+    def test_correct_responses(self):
+        """
+        Tests for the correct responses on both found and
+        not found locations but correct parameters
+        """
+        respon = requests.get(basic_url + "?city=pizza&country=co")
+        self.assertEqual("We couldn't find the city 'pizza' with the \
+country code 'co'", respon.json(), "Correct message not being sent")
+        self.assertEqual(respon.status_code, 404, "Incorrect status code")
+        respon = requests.get(basic_url + "?city=medellin&country=co")
+        self.assertEqual(respon.status_code, 200, "Incorrect status code")
 
     def test_different_http_methods(self):
         """
